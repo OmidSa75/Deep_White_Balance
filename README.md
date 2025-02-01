@@ -92,6 +92,17 @@ Other useful options include: `--patches-per-image` to select the number of rand
 
 If you have TensorBoard installed on your machine, run `tensorboard --logdir ./runs` after start training to check training progress and visualize samples of input/output patches. 
 
+### Docker Installation
+To build the docker image:
+```commandline
+docker build -t wb:latest .
+```
+
+To run the inference:
+```commandline
+docker run --rm   --gpus all -v $(pwd):/workspace/ -it wb:latest python -m src.demo_single_image --input example_images/06.jpg  --output_dir result_images --device cuda
+```
+
 ### Results
 
 
