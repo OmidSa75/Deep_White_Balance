@@ -39,43 +39,8 @@ We provide source code for Matlab and PyTorch platforms. *There is no guarantee 
 
 ### 1. Matlab (recommended)
 
-#### Prerequisite
-1. Matlab 2019b or higher 
-2. Deep Learning Toolbox
 
-#### Get Started
-Run `install_.m`
-
-##### Demos:
-
-1. Run `demo_single_image.m` or `demo_images.m` to process a single image or image directory, respectively. The available tasks are AWB, all, and editing. If you run the demo_single_image.m, it should save the result in `../result_images` and output the following figure:
-
-<p align="center">
-  <img width = 60% src="https://user-images.githubusercontent.com/37669469/81720791-dfb7a000-944c-11ea-95e5-edf36fdf5536.png">
-</p>
-
-
-2. Run `demo_GUI.m` for a gui demo.
-<p align="center">
-  <img width = 50% src="https://user-images.githubusercontent.com/37669469/81490900-73268080-9255-11ea-9a7f-579c3750b70a.gif">
-</p>
-
-
-##### Training Code:
-Run `training.m` to start training. You should adjust training image directories from the `datasetDir` variable before running the code. You can change the training settings in `training.m` before training.  
-
-For example, you can use `epochs` and `miniBatch` variables to change the number of training epochs and mini-batch size, respectively. If you set `fold = 0` and `trainingImgsNum = 0`, the training will use all training data without fold cross-validation. If you would like to limit the number of training images to be `n` images, set `trainingImgsNum` to `n`. If you would like to do 3-fold cross-validation, use `fold = testing_fold`. Then the code will train on the remaining folds and leave the selected fold for testing. 
-
-Other useful options include: `patchsPerImg` to select the number of random patches per image and `patchSize` to set the size of training patches. To control the learning rate drop rate and factor, please check the `get_training_options.m` function located in the `utilities` directory. You can use the `loadpath` variable to continue training from a training checkpoint `.mat` file. To start training from scratch, use `loadpath=[];`.
-
-Once training started, a `.cvs` file will be created in the `reports_and_checkpoints` directory. You can use this file to visualize training progress. If you run Matlab with a graphical interface and you want to visualize some of input/output patches during training, set a breakpoint [here](./Matlab/arch/maeLossLayer.m#L30) and write the following code in the command window:
-
-```close all; i = 1; figure; subplot(2,3,1);imshow(extractdata(Y(:,:,1:3,i)));  subplot(2,3,2);imshow(extractdata(Y(:,:,4:6,i)));  subplot(2,3,3);imshow(extractdata(Y(:,:,7:9,i))); subplot(2,3,4); imshow(gather(T(:,:,1:3,i))); subplot(2,3,5); imshow(gather(T(:,:,4:6,i))); subplot(2,3,6); imshow(gather(T(:,:,7:9,i)));``` 
-
-You can change the value of `i` in the above code to see different images in the current training batch. The figure will show you produced patches (first row) and the corresponding ground truth patches (second row). For non-graphical interface, you can edit your custom code [here](./Matlab/arch/maeLossLayer.m#L30) to save example patches periodically. Hint: you may need to use a [persistent variable](https://www.mathworks.com/help/matlab/ref/persistent.html) to control the process. Alternative solutions include using [custom trianing loop](https://www.mathworks.com/help/deeplearning/ug/define-custom-training-loops-loss-functions-and-networks.html). 
-
-
-### 2. PyTorch
+### Installation
 
 #### Prerequisite
 
@@ -110,7 +75,7 @@ You can change the value of `i` in the above code to see different images in the
 
 ##### Demos:
 1. Run `demo_single_image.py` to process a single image.
-Example of applying AWB + different WB settings: `python demo_single_image.py --input_image ../example_images/00.jpg --output_image ../result_images --show`. This example should save the output image in `../result_images` and output the following figure:
+Example of applying AWB + different WB settings: `python -m src.demo_single_image --input example_images/06.jpg  --output_dir result_images --device cuda`. This example should save the output image in `../result_images` and output the following figure:
 <p align="center">
   <img width = 55% src="https://user-images.githubusercontent.com/37669469/81723996-aafa1780-9451-11ea-8e59-1df77cb58175.png">
 </p>
