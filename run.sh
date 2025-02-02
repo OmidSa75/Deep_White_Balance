@@ -1,0 +1,1 @@
+docker run --rm   --gpus all -v $(pwd):/workspace/ -p 8888:8888 -it wb:latest uvicorn src.__main__:app --port 8888 --host 0.0.0.0 --reload
